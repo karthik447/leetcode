@@ -1,0 +1,21 @@
+class Solution {
+    public double myPow(double x, int n) {
+        if (n == 0) return 1.0; // Base case
+
+        long power = n; // Convert to long to handle Integer.MIN_VALUE
+        if (power < 0) {
+            x = 1 / x;
+            power = -power;
+        }
+
+        double result = 1.0;
+        while (power > 0) {
+            if (power % 2 == 1) { // If n is odd, multiply result by x
+                result *= x;
+            }
+            x *= x; // Square the base
+            power /= 2; // Reduce exponent by half
+        }
+        return result;
+    }
+}
