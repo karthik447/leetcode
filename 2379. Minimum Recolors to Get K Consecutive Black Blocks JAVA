@@ -1,0 +1,21 @@
+class Solution {
+    public int minimumRecolors(String blocks, int k) {
+        int n = blocks.length();
+        int minRecolors = Integer.MAX_VALUE; // Initialize with a large value
+
+        // Iterate through all possible windows of size k
+        for (int i = 0; i <= n - k; i++) {
+            int recolors = 0; // Count of 'W's in the current window
+            // Count the number of 'W's in the current window
+            for (int j = i; j < i + k; j++) {
+                if (blocks.charAt(j) == 'W') {
+                    recolors++;
+                }
+            }
+            // Update the minimum recolors
+            minRecolors = Math.min(minRecolors, recolors);
+        }
+
+        return minRecolors;
+    }
+}
