@@ -1,0 +1,35 @@
+class Solution {
+    public int numberOfAlternatingGroups(int[] colors, int k) {
+        int n = colors.length;
+        int count = 0, validCount = 0;
+
+        // Initialize first k elements
+        for (int i = 1; i < k; i++) {
+            if (colors[i] != colors[i - 1]) validCount++;
+        }
+
+        // If the first k elements form a valid alternating group
+        if (validCount == k - 1) count++;
+
+        // Sliding window: move from 1 to (n-1)
+        for (int i = 1; i < n; i++) {
+            int removeIndex = i - 1;            // Element that is leaving
+            int addIndex = (i + k - 1) % n;     // Element that is entering
+
+            // Remove previous contribution
+            if (removeIndex + 1 < n && colors[removeIndex] != colors[removeIndex + 1]) {
+                validCount--;
+            }
+
+            // Add new contribution
+            if (addIndex < n && colors[addIndex] != colors[(addIndex - 1 + n) % n]) {
+                validCount++;
+            }
+
+            // If validCount == k - 1, the window forms a valid alternating sequence
+            if (validCount == k - 1) count++;
+        }
+
+        return count;
+    }
+}
