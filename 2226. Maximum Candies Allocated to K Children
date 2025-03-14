@@ -1,0 +1,35 @@
+class Solution {
+    public int maximumCandies(int[] candies, long k) {
+        long total = 0;
+        int maxCandy = 0;
+        
+        for (int c : candies) {
+            total += c;
+            maxCandy = Math.max(maxCandy, c);
+        }
+        
+        if (total < k) return 0;
+        
+        int left = 1, right = (int) Math.min(maxCandy, total / k), result = 0;
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (canAllocate(candies, k, mid)) {
+                result = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return result;
+    }
+
+    private boolean canAllocate(int[] candies, long k, int mid) {
+        long count = 0;
+        for (int c : candies) {
+            count += c / mid;
+            if (count >= k) return true;
+        }
+        return false;
+    }
+}
