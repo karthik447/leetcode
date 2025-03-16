@@ -1,0 +1,30 @@
+import java.util.*;
+
+class Solution {
+    private boolean canRepairInTime(long time, int[] ranks, int cars) {
+        long totalCars = 0;
+        for (int r : ranks) {
+            long count = (long) Math.sqrt(time / r);
+            totalCars += count;
+            if (totalCars >= cars) return true;
+        }
+        return false;
+    }
+
+    public long repairCars(int[] ranks, int cars) {
+        long low = 1;
+        long high = (long) Arrays.stream(ranks).min().getAsInt() * (long) cars * cars;
+        long ans = high;
+
+        while (low < high) {
+            long mid = low + (high - low) / 2;
+            if (canRepairInTime(mid, ranks, cars)) {
+                ans = mid;
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+}
