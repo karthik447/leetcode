@@ -1,0 +1,23 @@
+class Solution {
+    public int longestNiceSubarray(int[] nums) {
+        int left = 0, right = 0, bitwise_or = 0, maxLength = 0;
+
+        while (right < nums.length) {
+            
+            while ((bitwise_or & nums[right]) != 0) {
+                bitwise_or ^= nums[left]; 
+                left++;
+            }
+            
+            bitwise_or |= nums[right];
+
+      
+            maxLength = Math.max(maxLength, right - left + 1);
+            
+            
+            right++;
+        }
+
+        return maxLength;
+    }
+}
