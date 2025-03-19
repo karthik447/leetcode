@@ -1,0 +1,30 @@
+
+int minOperations(int* nums, int numsSize) {
+    int flip_count = 0, operations = 0;
+    int front = 0, rear = 0, queue_size = 0;
+    int *queue = (int *)malloc(numsSize * sizeof(int));
+    
+    for (int i = 0; i < numsSize; i++) {
+        if (queue_size > 0 && queue[front] < i - 2) {
+            front = (front + 1) % numsSize;
+            queue_size--;
+            flip_count ^= 1; 
+        }
+     
+        if ((nums[i] ^ flip_count) == 0) {
+            if (i > numsSize - 3) { 
+                free(queue);
+                return -1;
+            }
+            queue[rear] = i;
+            rear = (rear + 1) % numsSize;
+            queue_size++;
+            flip_count ^= 1; 
+            operations++;
+        }
+    }
+    
+    free(queue);
+    return operations;
+}
+
