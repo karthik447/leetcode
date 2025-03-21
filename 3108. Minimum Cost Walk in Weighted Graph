@@ -1,0 +1,61 @@
+import java.util.*;
+
+class Solution {
+    public int[] minimumCost(int n, int[][] edges, int[][] query) {
+        List<int[]>[] graph = new ArrayList[n];
+        for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();
+        
+        for (int[] edge : edges) {
+            int u = edge[0], v = edge[1], w = edge[2];
+            graph[u].add(new int[]{v, w});
+            graph[v].add(new int[]{u, w});
+        }
+
+        int[] component = new int[n];
+        Arrays.fill(component, -1);
+        int[] minAndValue = new int[n];
+        Arrays.fill(minAndValue, Integer.MAX_VALUE);
+        
+        int compID = 0;
+        
+        for (int i = 0; i < n; i++) {
+            if (component[i] == -1) {
+                Queue<Integer> queue = new LinkedList<>();
+                queue.add(i);
+                component[i] = compID;
+                
+                int minAND = Integer.MAX_VALUE;
+                List<Integer> nodes = new ArrayList<>();
+                
+                while (!queue.isEmpty()) {
+                    int node = queue.poll();
+                    nodes.add(node);
+                    
+                    for (int[] neighbor : graph[node]) {
+                        int next = neighbor[0], weight = neighbor[1];
+                        minAND &= weight;
+                        
+                        if (component[next] == -1) {
+                            component[next] = compID;
+                            queue.add(next);
+                        }
+                    }
+                }
+                
+                for (int node : nodes) {
+                    minAndValue[node] = minAND;
+                }
+                
+                compID++;
+            }
+        }
+        
+        int[] result = new int[query.length];
+        for (int i = 0; i < query.length; i++) {
+            int s = query[i][0], t = query[i][1];
+            result[i] = (component[s] != component[t]) ? -1 : minAndValue[s];
+        }
+        
+        return result;
+    }
+}
