@@ -1,0 +1,33 @@
+import java.util.Arrays;
+
+class Solution {
+    public int minOperations(int[][] grid, int x) {
+        int m = grid.length, n = grid[0].length;
+        int size = m * n;
+        int[] nums = new int[size];
+        
+        int index = 0;
+        for (int[] row : grid) {
+            for (int num : row) {
+                nums[index++] = num;
+            }
+        }
+     
+        int remainder = nums[0] % x;
+        for (int num : nums) {
+            if (num % x != remainder) {
+                return -1;
+            }
+        }
+  
+        Arrays.sort(nums);
+        int median = nums[size / 2];
+
+        int operations = 0;
+        for (int num : nums) {
+            operations += Math.abs(num - median) / x;
+        }
+        
+        return operations;
+    }
+}
