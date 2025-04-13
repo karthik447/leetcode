@@ -1,0 +1,23 @@
+class Solution {
+    public int countGoodNumbers(long n) {
+        int mod = 1000000007;
+        long evenPositions = (n + 1) / 2;
+        long oddPositions = n / 2;
+        
+        long count = (power(5, evenPositions, mod) * power(4, oddPositions, mod)) % mod;
+        return (int) count;
+    }
+    
+    private long power(long x, long y, int mod) {
+        long result = 1;
+        x = x % mod;
+        while (y > 0) {
+            if (y % 2 == 1) {
+                result = (result * x) % mod;
+            }
+            x = (x * x) % mod;
+            y /= 2;
+        }
+        return result;
+    }
+}
