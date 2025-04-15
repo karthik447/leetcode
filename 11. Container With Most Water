@@ -7,7 +7,7 @@ class Solution {
             int ht = Math.min(height[lp], height[rp]);
             int width = rp - lp;
             int currwater = ht * width;
-            maxwater = Math.max(maxwater, currwater)
+            maxwater = Math.max(maxwater, currwater);
             if (height[lp] < height[rp]) {
                 lp++;
             } else {
