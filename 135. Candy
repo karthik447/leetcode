@@ -5,7 +5,7 @@ public class Solution {
         for (int i = 1; i < n; i++) {
             if (ratings[i - 1] < ratings[i] && candies[i - 1] >= candies[i]) {
                
-                candies[i] = candies[i - 1] + 1
+                candies[i] = candies[i - 1] + 1;
             }
         }
         
