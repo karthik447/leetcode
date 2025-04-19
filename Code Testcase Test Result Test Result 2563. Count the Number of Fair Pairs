@@ -1,0 +1,54 @@
+import java.util.Arrays;
+
+class Solution {
+    public long countFairPairs(int[] nums, int lower, int upper) {
+        Arrays.sort(nums);
+        long count = 0;
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int a = nums[i];
+            int leftTarget = lower - a;
+            int rightTarget = upper - a;
+            
+            int left = lowerBound(nums, i + 1, n - 1, leftTarget);
+            int right = upperBound(nums, i + 1, n - 1, rightTarget);
+            
+            if (left <= right) {
+                count += (right - left + 1);
+            }
+        }
+        return count;
+    }
+    
+    private int lowerBound(int[] nums, int start, int end, int target) {
+        int low = start;
+        int high = end;
+        int result = end + 1; 
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] >= target) {
+                result = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return result;
+    }
+    
+    private int upperBound(int[] nums, int start, int end, int target) {
+        int low = start;
+        int high = end;
+        int result = start - 1; 
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] <= target) {
+                result = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return result;
+    }
+}
