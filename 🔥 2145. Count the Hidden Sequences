@@ -1,0 +1,12 @@
+var numberOfArrays = function(differences, lower, upper) {
+    let prefix = 0, min = 0, max = 0;
+
+    for (let diff of differences) {
+        prefix += diff;
+        min = Math.min(min, prefix);
+        max = Math.max(max, prefix);
+    }
+
+    let range = (upper - lower) - (max - min) + 1;
+    return Math.max(0, range);
+};
