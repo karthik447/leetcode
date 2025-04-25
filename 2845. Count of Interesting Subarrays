@@ -1,0 +1,17 @@
+
+class Solution {
+    public long countInterestingSubarrays(List<Integer> nums, int modulo, int k) {
+        Map<Integer, Long> freq = new HashMap<>();
+        freq.put(0, 1L);
+        long ans = 0, count = 0;
+
+        for (int num : nums) {
+            if (num % modulo == k) count++;
+            int key = (int)((count - k + modulo) % modulo);
+            ans += freq.getOrDefault(key, 0L);
+            freq.put((int)(count % modulo), freq.getOrDefault((int)(count % modulo), 0L) + 1);
+        }
+
+        return ans;
+    }
+}
