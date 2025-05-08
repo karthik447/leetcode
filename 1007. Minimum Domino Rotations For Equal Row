@@ -13,6 +13,6 @@ class Solution {
             else if (tops[i] != target) topRotations++;
             else if (bottoms[i] != target) bottomRotations++;
         }
-        return Math.min(topRotations, bottomRotations);
+        return Math.min(topRotations, bottomRotations)
     }
 }
