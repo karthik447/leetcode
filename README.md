@@ -22,4 +22,4 @@ This repository contains my daily **LeetCode problem solutions** in **Java** (an
 
 ## **📂 Repository Structure**  
 ## **📌 My LeetCode Profile**  
-🔗 **[LeetCode Profile - Sanjeev Kumar](https://leetcode.com/u/2u2CuogQQc/)**
+🔗 **[LeetCode Profile - Sanjeev Kumar]()**
